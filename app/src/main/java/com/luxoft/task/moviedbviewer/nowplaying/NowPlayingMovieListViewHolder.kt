@@ -5,7 +5,6 @@ import com.bumptech.glide.Glide
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.moviedbviewer.detail.MovieDetailActivity
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
-import com.luxoft.task.search.models.view.SearchMovieViewData
 import com.skydoves.baserecyclerviewadapter.BaseViewHolder
 import kotlinx.android.synthetic.main.now_playing_movie_view.view.*
 

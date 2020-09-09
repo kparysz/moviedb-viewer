@@ -30,7 +30,7 @@ class MovieDetailPresenter @Inject constructor(
     override fun removeMovieFromFavourite(movieId: Int) {
         scheduler.schedule(
             favouritesMovieApi.removeFromFavourites(movieId),
-            { view.setFavouriteMovie(false)  },
+            { view.setFavouriteMovie(false) },
             {},
             this
         )

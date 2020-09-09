@@ -3,7 +3,6 @@ package com.luxoft.task.moviedbviewer.nowplaying
 import android.view.View
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
-import com.luxoft.task.search.models.view.SearchMovieViewData
 import com.skydoves.baserecyclerviewadapter.BaseAdapter
 import com.skydoves.baserecyclerviewadapter.SectionRow
 

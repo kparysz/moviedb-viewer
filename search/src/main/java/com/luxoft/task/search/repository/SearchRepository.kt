@@ -11,11 +11,12 @@ class SearchRepository @Inject constructor(
     private val useCase: DomainToViewModelUseCase
 ) : SearchMovieApi {
 
-    override fun searchMovie(): Single<List<SearchMovieViewData>> = searchApi.searchMovie(
-        "34504426320940f320b83c20b38dcb5e",
-        "en-US",
-        "1",
-        false,
-        1
-    ).map { useCase.transform(it.results) }
+    override fun searchMovie(query: String): Single<List<SearchMovieViewData>> =
+        searchApi.searchMovie(
+            "34504426320940f320b83c20b38dcb5e",
+            "en-US",
+            query,
+            false,
+            1
+        ).map { useCase.transform(it.results) }
 }

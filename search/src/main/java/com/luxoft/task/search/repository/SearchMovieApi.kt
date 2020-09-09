@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface SearchMovieApi {
 
-    fun searchMovie(): Single<List<SearchMovieViewData>>
+    fun searchMovie(query: String): Single<List<SearchMovieViewData>>
 }

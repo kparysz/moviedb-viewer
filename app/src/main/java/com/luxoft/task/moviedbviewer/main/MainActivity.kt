@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
-import com.luxoft.task.base.models.domain.NowPlayingResponse
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.moviedbviewer.nowplaying.NowPlayingMoviesFragment
 import dagger.android.support.DaggerAppCompatActivity
