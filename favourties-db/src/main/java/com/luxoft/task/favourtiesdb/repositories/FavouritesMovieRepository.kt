@@ -20,6 +20,6 @@ class FavouritesMovieRepository @Inject constructor(
             favouritesDao.removeFavourite(movieId)
         }
 
-    override fun isMovieFavourite(movieId: Int): Single<Boolean> =
+    override fun isMovieFavourite(movieId: Int): Boolean =
         favouritesDao.isFavourite(movieId)
 }

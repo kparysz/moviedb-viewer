@@ -2,6 +2,7 @@ package com.luxoft.task.moviedbviewer.detail
 
 import com.luxoft.task.base.rx.ApplicationScheduler
 import com.luxoft.task.favourtiesdb.repositories.FavouritesMovieApi
+import io.reactivex.Single
 import javax.inject.Inject
 
 class MovieDetailPresenter @Inject constructor(
@@ -11,7 +12,11 @@ class MovieDetailPresenter @Inject constructor(
 
     override fun isFavourite(movieId: Int) {
         scheduler.schedule(
-            favouritesMovieApi.isMovieFavourite(movieId),
+            Single.create<Boolean> { emitter ->
+                if (emitter.isDisposed.not()) {
+                    emitter.onSuccess(favouritesMovieApi.isMovieFavourite(movieId))
+                }
+            },
             { view.setFavouriteMovie(it) },
             {},
             this

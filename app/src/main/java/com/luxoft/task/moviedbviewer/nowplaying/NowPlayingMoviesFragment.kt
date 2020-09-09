@@ -46,10 +46,14 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
                 }
             }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getNowPlayingMovies()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        presenter.getNowPlayingMovies()
     }
 
     override fun onDestroyView() {
@@ -139,7 +143,8 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
         })
     }
 
-    override fun refresh() {
+    override fun refresh(nowPlayingMovies: List<NowPlayingMovieViewData>) {
+        adapter.addMovieList(nowPlayingMovies)
     }
 
     override fun showError() {

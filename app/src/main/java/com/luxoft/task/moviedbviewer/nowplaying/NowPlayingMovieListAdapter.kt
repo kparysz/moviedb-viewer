@@ -14,6 +14,7 @@ class NowPlayingMovieListAdapter : BaseAdapter() {
 
     fun addMovieList(movies: List<NowPlayingMovieViewData>) {
         movies.isNullOrEmpty().not().apply {
+            sections()[0].clear()
             sections()[0].addAll(movies)
             notifyDataSetChanged()
         }

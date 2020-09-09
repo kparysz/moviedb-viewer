@@ -18,7 +18,7 @@ class NowPlayingPresenter @Inject constructor(
         scheduler.schedule(
             nowPlayingApi.getNowPlaying(),
             {
-                mapWithAction(it)
+                localNowPlayingMovies = mapWithAction(it)
                 view.showNowPlayingMovies(it)
                 view.fillAutoCompleteAdapter(it)
             },
@@ -36,7 +36,7 @@ class NowPlayingPresenter @Inject constructor(
         )
     }
 
-    private fun mapWithAction(nowPlayingMovies: List<NowPlayingMovieViewData>) {
+    private fun mapWithAction(nowPlayingMovies: List<NowPlayingMovieViewData>) =
         nowPlayingMovies.map { nowPlayingMovie ->
             nowPlayingMovie.apply {
                 favouriteAction = if (isLiked) {
@@ -46,12 +46,14 @@ class NowPlayingPresenter @Inject constructor(
                 }
             }
         }
-    }
 
     private fun addMovieToFavourite(movieId: Int) {
         scheduler.schedule(
             favouritesMovieApi.addToFavourites(movieId),
-            { view.refresh() },
+            {
+                setFavouriteMovie(movieId, true)
+                view.refresh(localNowPlayingMovies)
+            },
             { view.showError() },
             this
         )
@@ -60,9 +62,18 @@ class NowPlayingPresenter @Inject constructor(
     private fun removeMovieFromFavourite(movieId: Int) {
         scheduler.schedule(
             favouritesMovieApi.removeFromFavourites(movieId),
-            { view.refresh() },
+            {
+                setFavouriteMovie(movieId, false)
+                view.refresh(localNowPlayingMovies)
+            },
             { view.showError() },
             this
         )
     }
+
+    private fun setFavouriteMovie(movieId: Int, isLiked: Boolean) {
+        localNowPlayingMovies.first { it.id == movieId }.isLiked = isLiked
+    }
+
+    private var localNowPlayingMovies = listOf<NowPlayingMovieViewData>()
 }
