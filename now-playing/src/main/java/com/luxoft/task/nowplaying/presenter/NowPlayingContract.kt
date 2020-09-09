@@ -9,7 +9,7 @@ interface NowPlayingContract {
     interface View {
         fun showNowPlayingMovies(movies: List<NowPlayingMovieViewData>)
         fun fillAutoCompleteAdapter(movies: List<NowPlayingMovieViewData>)
-        fun refresh()
+        fun refresh(nowPlayingMovies: List<NowPlayingMovieViewData>)
         fun showError()
     }
 

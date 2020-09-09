@@ -11,7 +11,7 @@ data class NowPlayingMovieViewData(
     val releaseDate: String,
     val voteAverage: Double,
     val posterUrl: String?,
-    val isLiked: Boolean
+    var isLiked: Boolean
 ) : Parcelable {
     var favouriteAction: (Int) -> Unit = {}
 }
