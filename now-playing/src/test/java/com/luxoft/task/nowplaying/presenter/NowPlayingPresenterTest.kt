@@ -58,7 +58,7 @@ class NowPlayingPresenterTest {
     }
 
     @Test
-    fun `remove movie from db when user click favourite icon`() {
+    fun `add movie from db when user click favourite icon`() {
         whenever(mockNowPlayingApi.getNowPlaying()).doReturn(playingNowMovies(false))
         systemUnderTest.getNowPlayingMovies()
 
@@ -67,12 +67,16 @@ class NowPlayingPresenterTest {
             firstValue.first().favouriteAction.invoke(0)
 
             verify(mockFavouritesMovieApi).addToFavourites(0)
-            verify(mockView).refresh()
+            argumentCaptor<List<NowPlayingMovieViewData>>().apply {
+                verify(mockView).refresh(capture())
+
+                assertThat(firstValue.first().isLiked).isTrue()
+            }
         }
     }
 
     @Test
-    fun `add movie from db when user click favourite icon`() {
+    fun `remove movie from db when user click favourite icon`() {
         whenever(mockNowPlayingApi.getNowPlaying()).doReturn(playingNowMovies(true))
         systemUnderTest.getNowPlayingMovies()
 
@@ -82,7 +86,11 @@ class NowPlayingPresenterTest {
             firstValue.first().favouriteAction.invoke(0)
 
             verify(mockFavouritesMovieApi).removeFromFavourites(0)
-            verify(mockView).refresh()
+            argumentCaptor<List<NowPlayingMovieViewData>>().apply {
+                verify(mockView).refresh(capture())
+
+                assertThat(firstValue.first().isLiked).isFalse()
+            }
         }
     }
 
