@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.luxoft.task.moviedbviewer.R
@@ -22,6 +23,7 @@ class MovieDetailActivity : DaggerAppCompatActivity(), MovieDetailContract.View 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_detail)
         data = intent.getParcelableExtra(movieId)!!
         presenter.attachView(this)

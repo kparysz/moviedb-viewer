@@ -18,7 +18,7 @@ class NowPlayingPresenter @Inject constructor(
             {
                 mapWithAction(it)
                 view.showNowPlayingMovies(it)
-                view.fillAutoCompleteAdapter(it.map { it.title })
+                view.fillAutoCompleteAdapter(it)
             },
             { view.showError() },
             this

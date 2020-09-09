@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.cursoradapter.widget.CursorAdapter
 import androidx.cursoradapter.widget.SimpleCursorAdapter
 import com.luxoft.task.moviedbviewer.R
+import com.luxoft.task.moviedbviewer.detail.MovieDetailActivity
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import com.luxoft.task.nowplaying.presenter.NowPlayingContract
 import dagger.android.support.DaggerFragment
@@ -77,7 +78,7 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
         swipe_to_refresh.isRefreshing = false
     }
 
-    override fun fillAutoCompleteAdapter(movies: List<String>) {
+    override fun fillAutoCompleteAdapter(movies: List<NowPlayingMovieViewData>) {
         val from = arrayOf(SearchManager.SUGGEST_COLUMN_TEXT_1)
         val to = intArrayOf(R.id.title)
         val cursorAdapter = SimpleCursorAdapter(
@@ -90,10 +91,10 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
         )
         searchView.suggestionsAdapter = cursorAdapter
         setTextListener(cursorAdapter, movies)
-        setSuggestionListener()
+        setSuggestionListener(movies)
     }
 
-    private fun setSuggestionListener() {
+    private fun setSuggestionListener(movies: List<NowPlayingMovieViewData>) {
         searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
             override fun onSuggestionSelect(position: Int): Boolean {
                 return false
@@ -102,17 +103,22 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
             override fun onSuggestionClick(position: Int): Boolean {
                 // hideKeyboard()
                 val cursor = searchView.suggestionsAdapter.getItem(position) as Cursor
-                val selection =
+                val movieTitle =
                     cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))
-                searchView.setQuery(selection, false)
+                searchView.setQuery(movieTitle, false)
 
-                // Do something with selection
+                MovieDetailActivity.startMovieDetailActivity(
+                    context,
+                    movies.first { it.title == movieTitle })
                 return true
             }
         })
     }
 
-    private fun setTextListener(cursorAdapter: SimpleCursorAdapter, movies: List<String>) {
+    private fun setTextListener(
+        cursorAdapter: SimpleCursorAdapter,
+        movies: List<NowPlayingMovieViewData>
+    ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // hideKeyboard()
@@ -124,8 +130,8 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
                     MatrixCursor(arrayOf(BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1))
                 query?.let {
                     movies.forEachIndexed { index, suggestion ->
-                        if (suggestion.contains(query, true))
-                            cursor.addRow(arrayOf(index, suggestion))
+                        if (suggestion.title.contains(query, true))
+                            cursor.addRow(arrayOf(index, suggestion.title))
                     }
                 }
                 cursorAdapter.changeCursor(cursor)
