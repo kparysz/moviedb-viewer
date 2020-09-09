@@ -1,7 +1,7 @@
 package com.luxoft.task.nowplaying.usecases
 
 import com.luxoft.task.favourtiesdb.repositories.FavouritesMovieApi
-import com.luxoft.task.nowplaying.models.domain.Results
+import com.luxoft.task.base.models.domain.Results
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import javax.inject.Inject
 

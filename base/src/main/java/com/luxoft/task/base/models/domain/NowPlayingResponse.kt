@@ -1,4 +1,4 @@
-package com.luxoft.task.nowplaying.models.domain
+package com.luxoft.task.base.models.domain
 
 import com.google.gson.annotations.SerializedName
 

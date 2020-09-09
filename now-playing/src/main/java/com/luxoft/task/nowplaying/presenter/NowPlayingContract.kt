@@ -13,7 +13,5 @@ interface NowPlayingContract {
 
     abstract class Presenter : BaseMvpPresenter<View>() {
         abstract fun getNowPlayingMovies()
-        abstract fun addMovieToFavourite(movieId: Int)
-        abstract fun removeMovieFromFavourite(movieId: Int)
     }
 }

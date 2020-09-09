@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
-import com.luxoft.task.search.models.view.SearchMovieViewData
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
@@ -33,8 +32,8 @@ class MovieDetailActivity : DaggerAppCompatActivity(), MovieDetailContract.View 
     private fun prepareView() {
         overview.text = data.overview
         supportActionBar?.title = data.title
-        release_date.text = "Release date: " + data.releaseDate
-        vote_average.text = "Rating: " + data.voteAverage.toString()
+        release_date.text = getString(R.string.release_date_prefix, data.releaseDate)
+        vote_average.text = getString(R.string.rating_prefix, data.voteAverage.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -66,7 +65,7 @@ class MovieDetailActivity : DaggerAppCompatActivity(), MovieDetailContract.View 
     }
 
     companion object {
-        private const val movieId = "movie"
+        const val movieId = "movie"
         fun startMovieDetailActivity(context: Context?, movie: NowPlayingMovieViewData) {
             context?.let {
                 val intent =

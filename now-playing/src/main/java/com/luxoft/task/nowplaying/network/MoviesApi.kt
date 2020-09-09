@@ -1,6 +1,6 @@
 package com.luxoft.task.nowplaying.network
 
-import com.luxoft.task.nowplaying.models.domain.NowPlayingResponse
+import com.luxoft.task.base.models.domain.NowPlayingResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

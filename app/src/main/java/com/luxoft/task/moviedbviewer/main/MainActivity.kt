@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
+import com.luxoft.task.base.models.domain.NowPlayingResponse
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.moviedbviewer.nowplaying.NowPlayingMoviesFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -20,7 +21,6 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container, NowPlayingMoviesFragment.newInstance(), "fragmentTag")

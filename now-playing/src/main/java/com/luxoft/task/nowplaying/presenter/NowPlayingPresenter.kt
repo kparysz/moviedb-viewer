@@ -19,9 +19,7 @@ class NowPlayingPresenter @Inject constructor(
                 mapWithAction(it)
                 view.showNowPlayingMovies(it)
             },
-            {
-                it.printStackTrace()
-                view.showError() },
+            { view.showError() },
             this
         )
     }
@@ -38,7 +36,7 @@ class NowPlayingPresenter @Inject constructor(
         }
     }
 
-    override fun addMovieToFavourite(movieId: Int) {
+    private fun addMovieToFavourite(movieId: Int) {
         scheduler.schedule(
             favouritesMovieApi.addToFavourites(movieId),
             { view.refresh() },
@@ -47,7 +45,7 @@ class NowPlayingPresenter @Inject constructor(
         )
     }
 
-    override fun removeMovieFromFavourite(movieId: Int) {
+    private fun removeMovieFromFavourite(movieId: Int) {
         scheduler.schedule(
             favouritesMovieApi.removeFromFavourites(movieId),
             { view.refresh() },

@@ -1,6 +1,6 @@
 package com.luxoft.task.search.network
 
-import com.luxoft.task.search.models.domain.SearchResultResponse
+import com.luxoft.task.base.models.domain.SearchResultResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

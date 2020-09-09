@@ -1,6 +1,6 @@
 package com.luxoft.task.search.usecases
 
-import com.luxoft.task.search.models.domain.Results
+import com.luxoft.task.base.models.domain.Results
 import com.luxoft.task.search.models.view.SearchMovieViewData
 import javax.inject.Inject
 
