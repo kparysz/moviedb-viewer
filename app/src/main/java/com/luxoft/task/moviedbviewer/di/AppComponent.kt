@@ -7,6 +7,8 @@ import com.luxoft.task.favourtiesdb.di.FavouritesMovieDbModule
 import com.luxoft.task.favourtiesdb.di.RoomModule
 import com.luxoft.task.nowplaying.di.MoviesRetrofitModule
 import com.luxoft.task.nowplaying.di.NowPlayingModule
+import com.luxoft.task.search.di.SearchModule
+import com.luxoft.task.search.di.SearchRetrofitModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -24,6 +26,9 @@ import javax.inject.Singleton
         NowPlayingModule::class,
         FavouritesMovieDbModule::class,
         RoomModule::class,
+        SearchModule::class,
+        SearchRetrofitModule::class,
+        DetailModule::class,
         MoviesRetrofitModule::class
     ]
 )

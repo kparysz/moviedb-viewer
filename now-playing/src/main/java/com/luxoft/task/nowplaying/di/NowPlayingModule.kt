@@ -12,7 +12,6 @@ import javax.inject.Singleton
 abstract class NowPlayingModule {
 
     @Binds
-    @Singleton
     abstract fun bindsNowPlayingPresenter(presenter: NowPlayingPresenter): NowPlayingContract.Presenter
 
     @Binds

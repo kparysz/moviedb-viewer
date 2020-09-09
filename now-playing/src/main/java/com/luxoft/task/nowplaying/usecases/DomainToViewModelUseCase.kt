@@ -5,7 +5,9 @@ import com.luxoft.task.nowplaying.models.domain.Results
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import javax.inject.Inject
 
-class DomainToViewModelUseCase @Inject constructor(private val favouritesMovieApi: FavouritesMovieApi) {
+class DomainToViewModelUseCase @Inject constructor(
+    private val favouritesMovieApi: FavouritesMovieApi
+) {
 
     companion object {
         private const val BASE_POSTER_PATH = "https://image.tmdb.org/t/p/w342"
@@ -20,11 +22,9 @@ class DomainToViewModelUseCase @Inject constructor(private val favouritesMovieAp
                 releaseDate = it.releaseDate,
                 voteAverage = it.voteAverage,
                 getPosterPath(it.posterPath),
-                isLiked = favouritesMovieApi.isMovieFavourite(it.id)
+                isLiked = favouritesMovieApi.isMovieFavourite(it.id).blockingGet()
             )
         }
 
-    private fun getPosterPath(posterPath: String): String {
-        return BASE_POSTER_PATH + posterPath
-    }
+    private fun getPosterPath(posterPath: String) = BASE_POSTER_PATH + posterPath
 }

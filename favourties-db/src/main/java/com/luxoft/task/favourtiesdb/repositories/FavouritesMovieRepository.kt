@@ -3,6 +3,7 @@ package com.luxoft.task.favourtiesdb.repositories
 import com.luxoft.task.favourtiesdb.db.FavouritesMovieDao
 import com.luxoft.task.favourtiesdb.db.FavouritesMovieEntity
 import io.reactivex.Completable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class FavouritesMovieRepository @Inject constructor(
@@ -16,10 +17,9 @@ class FavouritesMovieRepository @Inject constructor(
 
     override fun removeFromFavourites(movieId: Int): Completable =
         Completable.fromAction {
-            favouritesDao.removeFavourite(FavouritesMovieEntity(movieId))
+            favouritesDao.removeFavourite(movieId)
         }
 
-    override fun isMovieFavourite(movieId: Int): Boolean {
-        return favouritesDao.isFavourite(movieId)
-    }
+    override fun isMovieFavourite(movieId: Int): Single<Boolean> =
+        favouritesDao.isFavourite(movieId)
 }

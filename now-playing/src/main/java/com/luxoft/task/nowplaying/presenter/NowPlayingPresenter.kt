@@ -2,6 +2,7 @@ package com.luxoft.task.nowplaying.presenter
 
 import com.luxoft.task.base.rx.ApplicationScheduler
 import com.luxoft.task.favourtiesdb.repositories.FavouritesMovieApi
+import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import com.luxoft.task.nowplaying.repository.NowPlayingApi
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class NowPlayingPresenter @Inject constructor(
         scheduler.schedule(
             nowPlayingApi.getNowPlaying(),
             {
+                mapWithAction(it)
                 view.showNowPlayingMovies(it)
             },
             { },
@@ -22,11 +24,33 @@ class NowPlayingPresenter @Inject constructor(
         )
     }
 
+    private fun mapWithAction(it: List<NowPlayingMovieViewData>) {
+        it.map {
+            it.apply {
+                favouriteAction = if (isLiked) {
+                    { removeMovieFromFavourite(this.id) }
+                } else {
+                    { addMovieToFavourite(this.id) }
+                }
+            }
+        }
+    }
+
     override fun addMovieToFavourite(movieId: Int) {
-        favouritesMovieApi.addToFavourites(movieId)
+        scheduler.schedule(
+            favouritesMovieApi.addToFavourites(movieId),
+            { view.refresh() },
+            {},
+            this
+        )
     }
 
     override fun removeMovieFromFavourite(movieId: Int) {
-        favouritesMovieApi.removeFromFavourites(movieId)
+        scheduler.schedule(
+            favouritesMovieApi.removeFromFavourites(movieId),
+            { view.refresh() },
+            {},
+            this
+        )
     }
 }

@@ -12,4 +12,6 @@ data class NowPlayingMovieViewData(
     val voteAverage: Double,
     val posterUrl: String?,
     val isLiked: Boolean
-) : Parcelable
+) : Parcelable {
+    var favouriteAction: (Int) -> Unit = {}
+}

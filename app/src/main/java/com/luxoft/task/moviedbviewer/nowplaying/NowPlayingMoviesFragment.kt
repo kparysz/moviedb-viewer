@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
+import com.luxoft.task.search.models.view.SearchMovieViewData
 import com.luxoft.task.nowplaying.presenter.NowPlayingContract
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_now_playing_movies.view.*
@@ -45,5 +46,9 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
 
     override fun showNowPlayingMovies(movies: List<NowPlayingMovieViewData>) {
         adapter.addMovieList(movies)
+    }
+
+    override fun refresh() {
+        adapter.notifyDataSetChanged()
     }
 }

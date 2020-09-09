@@ -1,5 +1,6 @@
 package com.luxoft.task.base.rx
 
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
@@ -22,6 +23,21 @@ open class AndroidScheduler @Inject constructor(
     ) {
         getSubscriptions(subscriber).add(
             single
+                .onTerminateDetach()
+                .observeOn(observingScheduler)
+                .subscribeOn(executingScheduler)
+                .subscribe(onNextAction, onErrorAction)
+        )
+    }
+
+    override fun schedule(
+        completable: Completable,
+        onNextAction: () -> Unit,
+        onErrorAction: (Throwable) -> Unit,
+        subscriber: Any
+    ) {
+        getSubscriptions(subscriber).add(
+            completable
                 .onTerminateDetach()
                 .observeOn(observingScheduler)
                 .subscribeOn(executingScheduler)

@@ -7,6 +7,7 @@ interface NowPlayingContract {
 
     interface View {
         fun showNowPlayingMovies(movies: List<NowPlayingMovieViewData>)
+        fun refresh()
     }
 
     abstract class Presenter : BaseMvpPresenter<View>() {
