@@ -9,6 +9,11 @@ class SearchPresenter @Inject constructor(
     private val searchMovieApi: SearchMovieApi
 ) : SearchContract.Presenter() {
 
+    override fun attachView(view: SearchContract.View) {
+        super.attachView(view)
+        view.fillAutoCompleteAdapter(listOf(""))
+    }
+
     override fun findMovie(query: String) {
         scheduler.schedule(
             searchMovieApi.searchMovie(query),

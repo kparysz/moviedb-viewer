@@ -1,10 +1,16 @@
 package com.luxoft.task.moviedbviewer.nowplaying
 
+import android.app.SearchManager
+import android.database.Cursor
+import android.database.MatrixCursor
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.provider.BaseColumns
+import android.view.*
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.cursoradapter.widget.CursorAdapter
+import androidx.cursoradapter.widget.SimpleCursorAdapter
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import com.luxoft.task.nowplaying.presenter.NowPlayingContract
@@ -23,6 +29,7 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
     lateinit var presenter: NowPlayingContract.Presenter
 
     private val adapter = NowPlayingMovieListAdapter()
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +56,82 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
         super.onDestroyView()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        searchView = searchItem?.actionView as SearchView
+        searchView.queryHint = getString(R.string.search_prompt)
+        searchView.findViewById<AutoCompleteTextView>(R.id.search_src_text).threshold = 1
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
+
     override fun showNowPlayingMovies(movies: List<NowPlayingMovieViewData>) {
         adapter.addMovieList(movies)
         swipe_to_refresh.isRefreshing = false
+    }
+
+    override fun fillAutoCompleteAdapter(movies: List<String>) {
+        val from = arrayOf(SearchManager.SUGGEST_COLUMN_TEXT_1)
+        val to = intArrayOf(R.id.title)
+        val cursorAdapter = SimpleCursorAdapter(
+            context,
+            R.layout.search_view,
+            null,
+            from,
+            to,
+            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+        )
+        searchView.suggestionsAdapter = cursorAdapter
+        setTextListener(cursorAdapter, movies)
+        setSuggestionListener()
+    }
+
+    private fun setSuggestionListener() {
+        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+            override fun onSuggestionSelect(position: Int): Boolean {
+                return false
+            }
+
+            override fun onSuggestionClick(position: Int): Boolean {
+                // hideKeyboard()
+                val cursor = searchView.suggestionsAdapter.getItem(position) as Cursor
+                val selection =
+                    cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))
+                searchView.setQuery(selection, false)
+
+                // Do something with selection
+                return true
+            }
+        })
+    }
+
+    private fun setTextListener(cursorAdapter: SimpleCursorAdapter, movies: List<String>) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // hideKeyboard()
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                val cursor =
+                    MatrixCursor(arrayOf(BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1))
+                query?.let {
+                    movies.forEachIndexed { index, suggestion ->
+                        if (suggestion.contains(query, true))
+                            cursor.addRow(arrayOf(index, suggestion))
+                    }
+                }
+                cursorAdapter.changeCursor(cursor)
+                return true
+            }
+        })
     }
 
     override fun refresh() {

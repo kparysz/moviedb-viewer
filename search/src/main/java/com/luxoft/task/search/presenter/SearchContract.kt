@@ -6,6 +6,7 @@ import com.luxoft.task.search.models.view.SearchMovieViewData
 interface SearchContract {
 
     interface View {
+        fun fillAutoCompleteAdapter(movies: List<String>)
         fun showSearchResults(movies: List<SearchMovieViewData>)
         fun showError()
     }
