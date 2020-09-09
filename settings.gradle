@@ -1,0 +1,6 @@
+include ':favourties-db'
+include ':search'
+include ':now-playing'
+include ':base'
+include ':app'
+rootProject.name = "MovieDBViewer"
