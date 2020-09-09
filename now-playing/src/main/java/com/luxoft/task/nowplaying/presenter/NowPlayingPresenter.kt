@@ -19,7 +19,7 @@ class NowPlayingPresenter @Inject constructor(
                 mapWithAction(it)
                 view.showNowPlayingMovies(it)
             },
-            { },
+            { view.showError() },
             this
         )
     }
@@ -40,7 +40,7 @@ class NowPlayingPresenter @Inject constructor(
         scheduler.schedule(
             favouritesMovieApi.addToFavourites(movieId),
             { view.refresh() },
-            {},
+            { view.showError() },
             this
         )
     }
@@ -49,7 +49,7 @@ class NowPlayingPresenter @Inject constructor(
         scheduler.schedule(
             favouritesMovieApi.removeFromFavourites(movieId),
             { view.refresh() },
-            {},
+            { view.showError() },
             this
         )
     }

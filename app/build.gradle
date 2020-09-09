@@ -52,7 +52,8 @@ dependencies {
     implementation project(path: ':now-playing')
     implementation project(path: ':search')
     implementation project(path: ':favourties-db')
-    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.multidex:multidex:$multiDexVersion"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeLayoutVersion"
 
     api "com.google.dagger:dagger:$daggerVersion"
     api "com.google.dagger:dagger-android:$daggerVersion"
@@ -61,8 +62,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-    compileOnly 'javax.annotation:jsr250-api:1.0'
-    implementation 'javax.inject:javax.inject:1'
+    compileOnly "javax.annotation:jsr250-api:$javaxAnnotationVersion"
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
 
     implementation "com.github.skydoves:baserecyclerviewadapter:$baseAdapterVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
