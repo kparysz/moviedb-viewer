@@ -15,7 +15,7 @@ Z uwagi na ograniczony czas postanowiłem nieco uprościć zadanie, starąjąc s
 7. Do listy można napisać DiffUtil który sam policzy czy zmieniła się stan widoku
 8. Detail Activity + componenty wokół niego powinny być w osobnym module (jak now playing)
 9. Lepszy error handling z parsowanie errorów aby użytkownika powiadomić dlaczego błąd wystąpił
-
+10. Testy do każdego modułu. Zdecydowałem się nie pisać do wszystkich modłów, ponieważ w dużej mierze będzie podobne.
 
 W zadaniu istnieją moduły. Mogą być one podzielone bardziej granularnie celem lepszego odseparowania klas, widoków, logik. 
 Na przykładzie now-playing module można zaproponować, rozdzielenie modeli domain i view do osobnych modułów. W obecnej implementacji moduł który zostanie zaimplementowany udstępni modele domenowe, które jednak są niepożądane. Aby tego uniknąć, modele domenowe powinny wylądować w osobnym module. W taki sam sposób można byłoby "rozbić" zapytania sieciowe oraz warstwę prezentacji. 
