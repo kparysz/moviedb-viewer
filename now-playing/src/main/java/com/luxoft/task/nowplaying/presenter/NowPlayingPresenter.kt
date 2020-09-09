@@ -19,7 +19,9 @@ class NowPlayingPresenter @Inject constructor(
                 mapWithAction(it)
                 view.showNowPlayingMovies(it)
             },
-            { view.showError() },
+            {
+                it.printStackTrace()
+                view.showError() },
             this
         )
     }

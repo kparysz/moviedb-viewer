@@ -12,7 +12,7 @@ buildscript {
         roomVersion = '2.2.5'
         daggerVersion = '2.28.3'
         retrofitVersion = '2.5.0'
-        okhttpVersion = '3.14.1'
+        okhttpVersion = '3.12.1'
         gsonVersion = '2.8.6'
         rxAndroidVersion = '2.1.1'
         rxJavaVersion = '2.2.19'
