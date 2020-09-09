@@ -2,6 +2,7 @@ package com.luxoft.task.moviedbviewer.main
 
 import android.app.SearchManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +12,10 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.security.ProviderInstaller
 import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.moviedbviewer.nowplaying.NowPlayingMoviesFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -19,6 +24,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installGooglePlayServicesProvider(this)
         setContentView(R.layout.activity_main)
         supportFragmentManager
             .beginTransaction()
@@ -62,5 +68,17 @@ class MainActivity : DaggerAppCompatActivity() {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun installGooglePlayServicesProvider(context: Context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                ProviderInstaller.installIfNeeded(context)
+            } catch (e: GooglePlayServicesRepairableException) {
+                GoogleApiAvailability.getInstance()
+                    .showErrorNotification(context, e.connectionStatusCode)
+            } catch (e: GooglePlayServicesNotAvailableException) {
+            }
+        }
     }
 }

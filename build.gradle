@@ -19,6 +19,7 @@ buildscript {
         glideVersion = '4.11.0'
         multiDexVersion = '2.0.1'
         swipeLayoutVersion = '1.1.0'
+        playServicesAuthVersion = '18.1.0'
         javaxAnnotationVersion = '1.0'
         javaxInjectVersion = '1'
         baseAdapterVersion = '0.1.3'

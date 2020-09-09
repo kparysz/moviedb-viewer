@@ -54,6 +54,7 @@ dependencies {
     implementation project(path: ':favourties-db')
     implementation "androidx.multidex:multidex:$multiDexVersion"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeLayoutVersion"
+    implementation "com.google.android.gms:play-services-auth:$playServicesAuthVersion"
 
     api "com.google.dagger:dagger:$daggerVersion"
     api "com.google.dagger:dagger-android:$daggerVersion"
