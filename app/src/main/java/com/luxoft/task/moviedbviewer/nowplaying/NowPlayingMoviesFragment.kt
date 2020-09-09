@@ -120,8 +120,8 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
         movies: List<NowPlayingMovieViewData>
     ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // hideKeyboard()
+            override fun onQueryTextSubmit(query: String): Boolean {
+                presenter.findMovie(query)
                 return false
             }
 

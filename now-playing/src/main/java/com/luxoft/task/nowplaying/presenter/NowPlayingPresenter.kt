@@ -4,11 +4,13 @@ import com.luxoft.task.base.rx.ApplicationScheduler
 import com.luxoft.task.favourtiesdb.repositories.FavouritesMovieApi
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import com.luxoft.task.nowplaying.repository.NowPlayingApi
+import com.luxoft.task.search.repository.SearchMovieApi
 import javax.inject.Inject
 
 class NowPlayingPresenter @Inject constructor(
     private val scheduler: ApplicationScheduler,
     private val nowPlayingApi: NowPlayingApi,
+    private val searchMovieApi: SearchMovieApi,
     private val favouritesMovieApi: FavouritesMovieApi
 ) : NowPlayingContract.Presenter() {
 
@@ -20,6 +22,15 @@ class NowPlayingPresenter @Inject constructor(
                 view.showNowPlayingMovies(it)
                 view.fillAutoCompleteAdapter(it)
             },
+            { view.showError() },
+            this
+        )
+    }
+
+    override fun findMovie(query: String) {
+        scheduler.schedule(
+            searchMovieApi.searchMovie(query),
+            { },
             { view.showError() },
             this
         )

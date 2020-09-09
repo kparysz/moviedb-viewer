@@ -2,6 +2,7 @@ package com.luxoft.task.nowplaying.presenter
 
 import com.luxoft.task.base.BaseMvpPresenter
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
+import com.luxoft.task.search.models.view.SearchMovieViewData
 
 interface NowPlayingContract {
 
@@ -14,5 +15,6 @@ interface NowPlayingContract {
 
     abstract class Presenter : BaseMvpPresenter<View>() {
         abstract fun getNowPlayingMovies()
+        abstract fun findMovie(query: String)
     }
 }
