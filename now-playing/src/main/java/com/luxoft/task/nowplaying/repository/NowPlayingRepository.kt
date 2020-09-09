@@ -13,5 +13,5 @@ class NowPlayingRepository @Inject constructor(
 
     override fun getNowPlaying(): Single<List<NowPlayingMovieViewData>> =
         moviesApi.getNowPlayingMovies("34504426320940f320b83c20b38dcb5e", "en-US", 1)
-            .map { it -> domainToViewModelUseCase.transform(it.results) }
+            .map { domainToViewModelUseCase.transform(it.results) }
 }
