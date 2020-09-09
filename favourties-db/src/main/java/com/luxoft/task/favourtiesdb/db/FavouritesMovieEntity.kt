@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
 data class FavouritesMovieEntity(
     @ColumnInfo(name = "movie_id")
     var movieId: Int
-): Parcelable {
+) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @IgnoredOnParcel
     var id = 0

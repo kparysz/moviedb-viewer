@@ -8,7 +8,6 @@ import com.luxoft.task.moviedbviewer.R
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import com.luxoft.task.nowplaying.presenter.NowPlayingContract
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_now_playing_movies.*
 import kotlinx.android.synthetic.main.fragment_now_playing_movies.view.*
 import javax.inject.Inject
 
