@@ -36,9 +36,9 @@ class NowPlayingPresenter @Inject constructor(
         )
     }
 
-    private fun mapWithAction(it: List<NowPlayingMovieViewData>) {
-        it.map {
-            it.apply {
+    private fun mapWithAction(nowPlayingMovies: List<NowPlayingMovieViewData>) {
+        nowPlayingMovies.map { nowPlayingMovie ->
+            nowPlayingMovie.apply {
                 favouriteAction = if (isLiked) {
                     { removeMovieFromFavourite(this.id) }
                 } else {

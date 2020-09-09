@@ -22,7 +22,7 @@ class DomainToViewModelUseCase @Inject constructor(
                 releaseDate = it.releaseDate,
                 voteAverage = it.voteAverage,
                 getPosterPath(it.posterPath),
-                isLiked = favouritesMovieApi.isMovieFavourite(it.id).blockingGet()
+                isLiked = false
             )
         }
 

@@ -101,7 +101,6 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
             }
 
             override fun onSuggestionClick(position: Int): Boolean {
-                // hideKeyboard()
                 val cursor = searchView.suggestionsAdapter.getItem(position) as Cursor
                 val movieTitle =
                     cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))
@@ -141,7 +140,6 @@ class NowPlayingMoviesFragment : DaggerFragment(), NowPlayingContract.View {
     }
 
     override fun refresh() {
-        adapter.notifyDataSetChanged()
     }
 
     override fun showError() {
