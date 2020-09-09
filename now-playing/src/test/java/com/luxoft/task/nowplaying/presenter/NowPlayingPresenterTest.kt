@@ -4,6 +4,7 @@ import com.luxoft.task.base.rx.ApplicationScheduler
 import com.luxoft.task.favourtiesdb.repositories.FavouritesMovieApi
 import com.luxoft.task.nowplaying.models.view.NowPlayingMovieViewData
 import com.luxoft.task.nowplaying.repository.NowPlayingApi
+import com.luxoft.task.search.repository.SearchMovieApi
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -18,6 +19,7 @@ class NowPlayingPresenterTest {
         on { getNowPlaying() } doReturn Single.just(emptyList())
     }
     private val mockView: NowPlayingContract.View = mock()
+    private val mockSearchMovieApi: SearchMovieApi = mock()
     private val mockFavouritesMovieApi: FavouritesMovieApi = mock {
         on { addToFavourites(any()) } doReturn Completable.complete()
         on { removeFromFavourites(any()) } doReturn Completable.complete()
@@ -26,6 +28,7 @@ class NowPlayingPresenterTest {
     val systemUnderTest = NowPlayingPresenter(
         mockScheduler,
         mockNowPlayingApi,
+        mockSearchMovieApi,
         mockFavouritesMovieApi
     )
 
@@ -39,6 +42,7 @@ class NowPlayingPresenterTest {
         systemUnderTest.getNowPlayingMovies()
 
         verify(mockView).showNowPlayingMovies(any())
+        verify(mockView).fillAutoCompleteAdapter(any())
     }
 
     @Test
