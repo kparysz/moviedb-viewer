@@ -13,5 +13,5 @@ interface FavouritesMovieDao {
 
     @Query("SELECT EXISTS(SELECT * FROM FavouritesMovieEntity WHERE movie_id = :movieId)")
     @Transaction
-    fun isFavourite(movieId: Int): Single<Boolean>
+    fun isFavourite(movieId: Int): Boolean
 }
